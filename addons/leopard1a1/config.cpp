@@ -34,7 +34,7 @@ class RscInGameUI
 {
     class RscUnitInfo;
 
-    class MKK_RscWeaponLeopard1A1_FCS: RscUnitInfo
+    class MKK_RscWeaponLeopard1_FCS: RscUnitInfo
 	{
 		idd=300;
 		onLoad="['onLoad',_this,'RscUnitInfo','IGUI'] call (uinamespace getvariable 'BIS_fnc_initDisplay'); _this call SG_fnc_sight_leopard1a1";
@@ -340,7 +340,48 @@ class CfgVehicles
 		};
 	};
 
-    class mkk_leopard1_base: Tank_F {};
+    class mkk_leopard1_base: Tank_F {
+        class Turrets: Turrets
+		{
+			class MainTurret: MainTurret
+			{
+				class OpticsIn
+				{
+					class Wide
+					{
+						initAngleX = 0;
+						minAngleX = -30;
+						maxAngleX = 30;
+						initAngleY = 0;
+						minAngleY = -100;
+						maxAngleY = 100;
+						initFov = 0.233*2;
+						minFov = 0.233*2;
+						maxFov = 0.233*2;
+						visionMode[] = {"Normal","Ti","NVG"};
+						thermalMode[] = {2,3};
+						gunnerOpticsModel = "leopard1a1\WST_Optics_Gunner_Leopard1A5_Wide.p3d";
+						gunnerOpticsEffect[] = {};
+					};
+					class Narrow: Wide
+					{
+						initFov = "0.233/4";
+						minFov = "0.233/4";
+						maxFov = "0.233/4";
+						gunnerOpticsModel = "leopard1a1\WST_Optics_Gunner_Leopard1A5_Narrow.p3d";
+					};
+					class Narrow1: Narrow
+					{
+						initFov = "0.233/8";
+						minFov = "0.233/8";
+						maxFov = "0.233/8";
+						gunnerOpticsModel = "leopard1a1\WST_Optics_Gunner_Leopard1A5_NATO.p3d";
+					};
+				};
+				turretInfoType="mkk_RHS_RscWeaponM1_FCS_new";
+			};
+		};
+    };
 
     class mkk_leopard1a1_base: mkk_leopard1_base
     {
@@ -435,7 +476,7 @@ class CfgVehicles
                         minFov = 0.233*2;
                         maxFov = 0.233*2;
                         visionMode[] = {"Normal","NVG"};
-                        gunnerOpticsModel = "\mkk_rhs_afrf_fix_m\empty";
+                        gunnerOpticsModel = "leopard1a1\WST_Optics_Gunner_Leopard1_Empty";
                         gunnerOpticsEffect[] = {};
                     };
                     class Narrow: Periscope
@@ -447,7 +488,7 @@ class CfgVehicles
                     };
                 };
                 weapons[] = {"mkk_leo_weap_l7a3_nofcs","mkk_MG3_nofcs"};
-                turretInfoType = "MKK_RscWeaponLeopard1A1_FCS";
+                turretInfoType = "MKK_RscWeaponLeopard1_FCS";
             };
         };
         class AnimationSources: AnimationSources
