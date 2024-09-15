@@ -244,7 +244,7 @@ class CfgFunctions
             class sight_leopard1a1
             {
                 file="leopard1a1\scripts\sight_tzf1a.sqf";
-				description="FCS Leopard 1A1";
+				description="Leopard TZF-1A sight and FCS";
             };
         };
     };
