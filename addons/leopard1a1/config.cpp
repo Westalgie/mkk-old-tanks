@@ -15,7 +15,6 @@ class CfgPatches
         requiredAddons[] = {
             "mkk_ammo_config",
             "leopard1_c",
-            "mkk_rhs_afrf_fix_m",
             "mkk_avrs",
         };
         author = "Westalgie";
