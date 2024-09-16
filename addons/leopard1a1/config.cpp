@@ -34,7 +34,7 @@ class RscInGameUI
 {
     class RscUnitInfo;
 
-    class MKK_RscWeaponLeopard1_FCS: RscUnitInfo
+    class MKK_RscWeaponLeopard1A1_FCS: RscUnitInfo
 	{
 		idd=300;
 		onLoad="['onLoad',_this,'RscUnitInfo','IGUI'] call (uinamespace getvariable 'BIS_fnc_initDisplay'); _this call SG_fnc_sight_leopard1a1";
@@ -48,7 +48,7 @@ class RscInGameUI
         {
 			idc = -1;
 			style = 2;
-			colorText[] = {1,0,0,1};
+			colorText[] = {1,1,1,1};
 			shadow = 3;
 			colorShadow[] = {100,100,100,95};
 			x = "0";
@@ -118,7 +118,7 @@ class RscInGameUI
 				{
 					idc = 180;
 					style = 1;
-					colorText[] = {0.706,0.0745,0.0196,1};
+					colorText[] = {1,1,1,1};
 					sizeEx = "0.038*SafezoneH";
 					shadow = 3;
 					colorShadow[] = {100,100,100,95};
@@ -144,7 +144,7 @@ class RscInGameUI
 					type = 105;
 					textSize = "0.02*SafezoneH";
 					style = 0;
-					color[] = {0.49,0.78,0.46,1};
+					color[] = {1,1,1,1};
 					shadow = 3;
 					colorShadow[] = {100,100,100,95};
 					x = "5.25 * 		(0.01875 * SafezoneH)";
@@ -162,7 +162,7 @@ class RscInGameUI
 					type = 105;
 					font = "TahomaB";
 					style = 1;
-					color[] = {0.49,0.78,0.46,1};
+					color[] = {1,1,1,1};
 					shadow = 3;
 					colorShadow[] = {100,100,100,95};
 					textSize = "0.02*SafezoneH";
@@ -183,7 +183,7 @@ class RscInGameUI
 					y = "3.0 * 		(0.025 * SafezoneH)";
 					w = "0.5 * 		(0.01875 * SafezoneH)";
 					h = "0.5 * 		(0.025 * SafezoneH)";
-					colorText[] = {0.49,0.78,0.46,1};
+					colorText[] = {1,1,1,1};
 					shadow = 3;
 					colorShadow[] = {100,100,100,95};
 				};
@@ -195,7 +195,7 @@ class RscInGameUI
 					shadow = 3;
 					colorShadow[] = {100,100,100,95};
 					font = "TahomaB";
-					colorText[] = {0.49,0.78,0.46,1};
+					colorText[] = {1,1,1,1};
 					text = "015";
 					x = "25.15 * 		(0.01875 * SafezoneH)";
 					y = "1.75 * 		(0.025 * SafezoneH)";
@@ -203,6 +203,136 @@ class RscInGameUI
 					h = "1.2 * 		(0.025 * SafezoneH)";
 				};
 			};
+		};
+	};
+
+    class MKK_RscWeaponLeopard1A5_FCS: RscUnitInfo //Добавляем новый худ для стрелка М1А1
+	{
+	    idd = 300;
+		controls[] = {"CA_IGUI_elements_group","CA_DistanceText","CA_Distance","CA_Zeroing"};
+		class CA_DistanceText: RscOpticsText
+        {
+            idc = -1;
+            style = 2;
+            colorText[] = {1,1,1,1};
+            shadow = 0;
+            colorShadow[] = {100,100,100,0};
+            x = "0";
+            y = "(SafezoneY+SafezoneH) - 0.05";
+            w = "1";
+            h = "0.05";
+            size = 5;
+        };
+        class CA_Distance: RscOpticsValue
+		{
+			idc = 198;
+			style = 2;
+			colorText[] = {0.9,0,0,1};
+			shadow = 3;
+			colorShadow[] = {100,100,100,95};
+			font = "TahomaB";
+			x = "0.45 * (SafezoneX+SafezoneW)";
+			y = "0.35 * (SafezoneY+SafezoneH)";
+			w = "1";
+			h = "0.05";
+		};
+		class CA_IGUI_elements_group: RscControlsGroup
+		{
+			idc = 170;
+			class VScrollbar: VScrollbar
+			{
+				width = 0;
+			};
+			class HScrollbar: HScrollbar
+			{
+				height = 0;
+			};
+			x = "0 *   (0.01875 * SafezoneH) +   (SafezoneX + ((SafezoneW - SafezoneH) / 2))";
+			y = "0 *   (0.025 * SafezoneH) +   (SafezoneY)";
+			w = "53.5 *   (0.01875 * SafezoneH)";
+			h = "40 *   (0.025 * SafezoneH)";
+			class controls
+			{
+				class CA_TurretIndicator: RscPicture
+				{
+					IDC = 206;
+					type = 105;
+					textSize = "0.02*SafezoneH";
+					style = 0;
+					color[] = {1,1,1,1};
+					shadow = 3;
+					colorShadow[] = {100,100,100,95};
+					x = "5.25 * 		(0.01875 * SafezoneH)";
+					y = "3.5 * 		(0.025 * SafezoneH)";
+					w = "6 * 		(0.01875 * SafezoneH)";
+					h = "6 * 		(0.025 * SafezoneH)";
+					imageHull = "A3\Ui_f\data\IGUI\RscIngameUI\RscOptics\turretIndicatorHull.paa";
+					imageTurret = "A3\Ui_f\data\IGUI\RscIngameUI\RscOptics\turretIndicatorTurret.paa";
+					imageObsTurret = "A3\Ui_f\data\IGUI\RscIngameUI\RscOptics\turretIndicatorObsTurret.paa";
+					imageGun = "#(rgb,8,8,3)color(0,0,0,0)";
+				};
+				class CA_HorizontalCompass: RscPicture
+				{
+					IDC = 207;
+					type = 105;
+					font = "TahomaB";
+					style = 1;
+					color[] = {1,1,1,1};
+					shadow = 3;
+					colorShadow[] = {100,100,100,95};
+					textSize = "0.02*SafezoneH";
+					x = "13.04 * 		(0.01875 * SafezoneH)";
+					y = "3.5 * 		(0.025 * SafezoneH)";
+					w = "27.18 * 		(0.01875 * SafezoneH)";
+					h = "1 * 		(0.025 * SafezoneH)";
+					imageHull = "A3\Ui_f\data\IGUI\RscIngameUI\RscOptics\horizontalCompassHull.paa";
+					imageTurret = "A3\Ui_f\data\IGUI\RscIngameUI\RscOptics\horizontalCompassTurret.paa";
+					imageObsTurret = "A3\Ui_f\data\IGUI\RscIngameUI\RscOptics\horizontalCompassObsTurret.paa";
+					imageGun = "#(rgb,8,8,3)color(0,0,0,0)";
+				};
+				class AzimuthMark: RscPicture
+				{
+					IDC = 1012;
+					text = "A3\Ui_f\data\IGUI\RscIngameUI\RscOptics\AzimuthMark.paa";
+					x = "26.35 * 		(0.01875 * SafezoneH)";
+					y = "3.0 * 		(0.025 * SafezoneH)";
+					w = "0.5 * 		(0.01875 * SafezoneH)";
+					h = "0.5 * 		(0.025 * SafezoneH)";
+					colorText[] = {1,1,1,1};
+					shadow = 3;
+					colorShadow[] = {100,100,100,95};
+				};
+				class CA_Heading: RscText
+				{
+					idc = 156;
+					style = 2;
+					sizeEx = "0.032*SafezoneH";
+					shadow = 3;
+					colorShadow[] = {100,100,100,95};
+					font = "TahomaB";
+					colorText[] = {1,1,1,1};
+					text = "015";
+					x = "25.15 * 		(0.01875 * SafezoneH)";
+					y = "1.75 * 		(0.025 * SafezoneH)";
+					w = "3 * 		(0.01875 * SafezoneH)";
+					h = "1.2 * 		(0.025 * SafezoneH)";
+				};
+				class CA_OpticsZoom: RscText
+				{
+					idc = 180;
+					style = 1;
+					colorText[] = {0.706,0.0745,0.0196,1};
+					sizeEx = "0.038*SafezoneH";
+					shadow = 3;
+					colorShadow[] = {100,100,100,95};
+					font = "TahomaB";
+					text = "4.5";
+					x = "43.85 *   (0.01875 * SafezoneH)";
+					y = "19.6 *   (0.025 * SafezoneH)";
+					w = "0*   (0.01875 * SafezoneH)";
+					h = "0 *   (0.025 * SafezoneH)";
+				};
+			};	
 		};
 	};
 };
@@ -341,6 +471,7 @@ class CfgVehicles
 	};
 
     class mkk_leopard1_base: Tank_F {
+        driverWeaponsInfoType = "RscOptics_MBT_01_Driver";
         class Turrets: Turrets
 		{
 			class MainTurret: MainTurret
@@ -378,7 +509,14 @@ class CfgVehicles
 						gunnerOpticsModel = "leopard1a1\WST_Optics_Gunner_Leopard1A5_NATO.p3d";
 					};
 				};
-				turretInfoType="mkk_RHS_RscWeaponM1_FCS_new";
+				turretInfoType="MKK_RscWeaponLeopard1A5_FCS";
+                class Turrets: Turrets
+                {
+                    class CommanderOptics: CommanderOptics
+                    {
+                        turretInfoType = "mkk_m1a1_commander2";
+                    };
+                };
 			};
 		};
     };
@@ -488,7 +626,7 @@ class CfgVehicles
                     };
                 };
                 weapons[] = {"mkk_leo_weap_l7a3_nofcs","mkk_MG3_nofcs"};
-                turretInfoType = "MKK_RscWeaponLeopard1_FCS";
+                turretInfoType = "MKK_RscWeaponLeopard1A1_FCS";
             };
         };
         class AnimationSources: AnimationSources
