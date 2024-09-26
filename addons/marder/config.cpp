@@ -1,21 +1,18 @@
 class CfgPatches
 {
-    class WST_mkk_leopard1a1
+    class WST_mkk_marder_1a5
     {
         units[]= {
-            "mkk_leopard1a1",
-            "mkk_leopard1a1_r",
-            "mkk_leopard1a1_g"
+            "mkk_Marder_1A1"
         };
         weapons[]={
-            "mkk_leo_weap_l7a3_nofcs",
-            "mkk_MG3_nofcs"
+            "mkk_veh_MG3_nofcs",
+            "mkk_MK20FL_nofcs"
         };
         requiredVersion = 0.1;
         requiredAddons[] = {
-            "mkk_ammo_config",
-            "leopard1_c",
-            "mkk_avrs",
+            "mkk_ger_vehicles_c",
+            "mkk_avrs"
         };
         author = "Westalgie";
     };
@@ -33,40 +30,13 @@ class RscInGameUI
 {
     class RscUnitInfo;
 
-    class MKK_RscWeaponLeopard1A1_FCS: RscUnitInfo
+    class MKK_RscWeaponMarder1A1_FCS: RscUnitInfo
 	{
 		idd=300;
-		onLoad="['onLoad',_this,'RscUnitInfo','IGUI'] call (uinamespace getvariable 'BIS_fnc_initDisplay'); _this call SG_fnc_sight_leopard1a1";
+		onLoad="['onLoad',_this,'RscUnitInfo','IGUI'] call (uinamespace getvariable 'BIS_fnc_initDisplay'); _this call SG_fnc_sight_marder1a1";
 		controls[]=
 		{
-            "CA_DistanceText",
-            "CA_Distance",
 			"CA_IGUI_elements_group"
-		};
-        class CA_DistanceText: RscOpticsText
-        {
-			idc = -1;
-			style = 2;
-			colorText[] = {1,1,1,1};
-			shadow = 3;
-			colorShadow[] = {100,100,100,95};
-			x = "0";
-			y = "(SafezoneY+SafezoneH) - 0.05";
-			w = "1";
-			h = "0.05";
-		};
-        class CA_Distance: RscOpticsValue
-		{
-			idc = 198;
-			style = 2;
-			colorText[] = {0.9,0,0,1};
-			shadow = 3;
-			colorShadow[] = {100,100,100,95};
-			font = "TahomaB";
-			x = "0.45 * (SafezoneX+SafezoneW)";
-			y = "0.35 * (SafezoneY+SafezoneH)";
-			w = "1";
-			h = "0.05";
 		};
 		class CA_IGUI_elements_group: RscControlsGroup
 		{
@@ -135,7 +105,7 @@ class RscInGameUI
 				class RHS_ControlNumber: CA_OpticsZoom
 				{
 					idc=1000;
-					text="MKK_SIGHT_TZF_1A";
+					text="MKK_SIGHT_PERI_11";
 				};
                 class CA_TurretIndicator: RscPicture
 				{
@@ -205,7 +175,7 @@ class RscInGameUI
 		};
 	};
 
-    class MKK_RscWeaponLeopard1A5_FCS: RscUnitInfo
+    class MKK_RscWeaponMarder1A5_FCS: RscUnitInfo
 	{
 	    idd = 300;
 		controls[] = {"CA_IGUI_elements_group","CA_DistanceText","CA_Distance","CA_Zeroing"};
@@ -261,7 +231,7 @@ class RscInGameUI
 					color[] = {1,1,1,1};
 					shadow = 3;
 					colorShadow[] = {100,100,100,95};
-					x = "5.25 * 		(0.01875 * SafezoneH)";
+					x = "43 * 		(0.01875 * SafezoneH)";
 					y = "3.5 * 		(0.025 * SafezoneH)";
 					w = "6 * 		(0.01875 * SafezoneH)";
 					h = "6 * 		(0.025 * SafezoneH)";
@@ -336,44 +306,16 @@ class RscInGameUI
 	};
 };
 
-class CfgAmmo
-{
-    class mkk_ammo_M1069;
-    class mkk_ammo_DM512: mkk_ammo_M1069
-    {
-        airFriction = -0.00008;
-    };
-};
-
-class CfgMagazines
-{
-    class mkk_leo1_mag_dm512;
-    class mkk_leo1_mag_dm512_fix: mkk_leo1_mag_dm512
-    {
-        ammo = "mkk_ammo_DM512";
-        displayName = "HE-T DM512";
-        dispalyNameShort = "HE-T DM512";
-        descriptionShort = "HE-T DM512";
-        initSpeed = 900;
-    };
-    class mkk_csw_leo1_mag_dm512_fix: mkk_leo1_mag_dm512_fix
-	{
-		scope = 2;
-		count = 1;
-		picture = "\centauro\data\ui\he.paa";
-	};
-};
-
 class CfgFunctions
 {
     class SG
     {
         class Functions
         {
-            class sight_leopard1a1
+            class sight_marder1a1
             {
-                file="leopard1a1\scripts\sight_tzf1a.sqf";
-				description="Leopard TZF-1A sight and FCS";
+                file="marder\scripts\sight_periz11.sqf";
+				description="Marder Peri-Z11 sight and FCS";
             };
         };
     };
@@ -381,103 +323,50 @@ class CfgFunctions
 
 class cfgWeapons
 {
-    class cannon_120mm;
-    class mkk_leo_weap_l7a3: cannon_120mm
-    {
-        class close;
-        class medium;
-        class far;
-        class short;
-        class player;
-    };
-    class mkk_MG3_vehicle;
+    class mkk_MK20FL;
+    class mkk_veh_MG3;
 
-    class mkk_leo_weap_l7a3_nofcs: mkk_leo_weap_l7a3
+    class mkk_MK20FL_nofcs: mkk_MK20FL
     {
-        magazines[] = { "mkk_leo1_mag_dm33","mkk_leo1_mag_dm12","mkk_leo1_mag_dm512_fix" };
-        ballisticsComputer = "0";
-        dispersion = 0;
-        class close: close
-        {
-            dispersion = 0.0002;
-        };
-        class far: far
-        {
-            dispersion = 0.0002;
-        };
-        class medium: medium
-        {
-            dispersion = 0.0002;
-        };
-        class short: short
-        {
-            dispersion = 0.0002;
-        };
-        class player: player
-        {
-            dispersion = 0.0002;
-        };
+        ballisticsComputer = 0;
     };
 
-    class mkk_MG3_nofcs: mkk_MG3_vehicle
+    class mkk_veh_MG3_nofcs: mkk_veh_MG3
     {
-        ballisticsComputer = "0";
+        ballisticsComputer = 0;
     };
 };
 
 class CfgVehicles
 {
     class LandVehicle;
-	class Tank: LandVehicle
-	{
-		class NewTurret;
-		class Sounds;
-		class HitPoints;
-	};
+    class Tank: LandVehicle
+    {
+        class NewTurret;
+    };
     class Tank_F: Tank
-	{
-		class Turrets
-		{
-			class MainTurret: NewTurret
-			{
-				class ViewGunner;
-				class Turrets
+    {
+        class AnimationSources;
+        class Turrets
+        {
+            class MainTurret: NewTurret {
+                class Turrets
 				{
 					class CommanderOptics;
-                    class Loader;
 				};
-			};
-		};
-		class AnimationSources;
-		class ViewPilot;
-		class ViewOptics;
-		class ViewCargo;
-		class EventHandlers;
-		class HeadLimits;
-		class HitPoints: HitPoints
-		{
-			class HitHull;
-			class HitFuel;
-			class HitEngine;
-			class HitLTrack;
-			class HitRTrack;
-		};
-		class Sounds: Sounds
-		{
-			class Engine;
-			class Movement;
-		};
-	};
-
-    class mkk_leopard1_base: Tank_F {
-        driverWeaponsInfoType = "RscOptics_MBT_01_Driver";
+            };
+        };
+    };
+    class mkk_Marder_1A5_base: Tank_F
+    {
         class Turrets: Turrets
 		{
 			class MainTurret: MainTurret
-			{
-				class OpticsIn
+            {
+                turretInfoType = "MKK_RscWeaponMarder1A5_FCS";
+                class OpticsIn
 				{
-					class Wide
+					class Day1
 					{
 						initAngleX = 0;
 						minAngleX = -30;
@@ -485,119 +374,64 @@ class CfgVehicles
 						initAngleY = 0;
 						minAngleY = -100;
 						maxAngleY = 100;
-						initFov = 0.233*2;
-						minFov = 0.233*2;
-						maxFov = 0.233*2;
+						initFov = 0.233*1.5;
+						maxFov = 0.233*1.5;
+						minFov = 0.233*1.5;
 						visionMode[] = {"Normal","Ti","NVG"};
 						thermalMode[] = {2,3};
-						gunnerOpticsModel = "leopard1a1\WST_Optics_Gunner_Leopard1A5_Wide.p3d";
+						gunnerOpticsModel = "marder\WST_Optics_Gunner_Marder_Periscope";
 						gunnerOpticsEffect[] = {};
 					};
-					class Narrow: Wide
+					class Day2: Day1
 					{
-						initFov = "0.233/4";
-						minFov = "0.233/4";
-						maxFov = "0.233/4";
-						gunnerOpticsModel = "leopard1a1\WST_Optics_Gunner_Leopard1A5_Narrow.p3d";
+                        initFov = 0.233/2;
+						maxFov = 0.233/2;
+						minFov = 0.233/2;
+						gunnerOpticsModel = "marder\WST_Optics_Gunner_Marder_Wide";
 					};
-					class Narrow1: Narrow
+					class Day3: Day1
 					{
-						initFov = "0.233/8";
-						minFov = "0.233/8";
-						maxFov = "0.233/8";
-						gunnerOpticsModel = "leopard1a1\WST_Optics_Gunner_Leopard1A5_NATO.p3d";
+                        initFov = 0.233/8;
+						maxFov = 0.233/8;
+						minFov = 0.233/8;
+						gunnerOpticsModel = "marder\WST_Optics_Gunner_Marder_Narrow";
 					};
 				};
-				turretInfoType="MKK_RscWeaponLeopard1A5_FCS";
                 class Turrets: Turrets
                 {
                     class CommanderOptics: CommanderOptics
                     {
-                        turretInfoType = "mkk_m1a1_commander2";
-                    };
-                };
-			};
-		};
-    };
-
-    class mkk_leopard1a1_base: mkk_leopard1_base
-    {
-        displayName = "Leopard 1A1";
-        class Turrets: Turrets
-        {
-            class MainTurret: MainTurret
-            {
-                class Turrets: Turrets
-                {
-                    class CommanderOptics: CommanderOptics
-                    {
-                        class ViewOptics: ViewOptics
-                        {
-                            visionMode[] = {"Normal","NVG"};
-                        };
                         class OpticsIn
                         {
-                            class Wide
+                            class Day1
                             {
-                                opticsDisplayName = "60HZ 1X";
                                 initAngleX = 0;
                                 minAngleX = -30;
                                 maxAngleX = 30;
                                 initAngleY = 0;
                                 minAngleY = -100;
                                 maxAngleY = 100;
-                                initFov = 0.233*2.2;
-                                minFov = 0.233*2.2;
-                                maxFov = 0.233*2.2;
-                                visionMode[] = {"Normal","NVG"};
-                                gunnerOpticsModel = "\A3\weapons_f\reticle\optics_binoculars";
+                                initFov = 0.233/2;
+                                maxFov = 0.233/2;
+                                minFov = 0.233/2;
+                                visionMode[] = {"Normal","Ti","NVG"};
+                                thermalMode[] = {2,3};
+                                gunnerOpticsModel = "marder\WST_Optics_Gunner_Marder_Wide";
                                 gunnerOpticsEffect[] = {};
                             };
-                            class Narrow: Wide
-                            {
-                                opticsDisplayName = "60HZ 6X";
-                                initFov = "0.233/6";
-                                minFov = "0.233/6";
-                                maxFov = "0.233/6";
-                            };
                         };
                     };
-                    class Loader: Loader
-                    {
-                        class ViewOptics: ViewOptics
-                        {
-                            visionMode[] = {"Normal","NVG"};
-                        };
-                        class OpticsIn
-						{
-							class Wide
-							{
-								initAngleX = 0;
-								minAngleX = -30;
-								maxAngleX = 30;
-								initAngleY = 0;
-								minAngleY = -100;
-								maxAngleY = 100;
-								initFov = 0.233*2.2;
-								minFov = 0.233*2.2;
-								maxFov = 0.233*2.2;
-								visionMode[] = {"Normal","NVG"};
-								gunnerOpticsModel="\A3\weapons_f\reticle\optics_generic_empty_f";
-								gunnerOpticsEffect[] = {};
-							};
-							class Narrow: Wide
-							{
-								initFov = "0.233/4";
-								minFov = "0.233/4";
-								maxFov = "0.233/4";
-							};
-						};
-                    };
                 };
-                class ViewOptics: ViewOptics
-                {
-                    visionMode[] = {"Normal","NVG"};
-                };
+            };
+        };
+    };
+
+    class mkk_Marder_1A1_base: mkk_Marder_1A5_base
+    {
+        class Turrets: Turrets
+        {
+            class MainTurret: MainTurret
+            {
                 class OpticsIn
                 {
                     class Periscope
@@ -609,9 +443,9 @@ class CfgVehicles
                         initAngleY = 0;
                         minAngleY = -100;
                         maxAngleY = 100;
-                        initFov = 0.233*2;
-                        minFov = 0.233*2;
-                        maxFov = 0.233*2;
+                        initFov = 0.233*1.5;
+                        minFov = 0.233*1.5;
+                        maxFov = 0.233*1.5;
                         visionMode[] = {"Normal","NVG"};
                         gunnerOpticsModel = "leopard1a1\WST_Optics_Gunner_Leopard1_Empty";
                         gunnerOpticsEffect[] = {};
@@ -619,164 +453,119 @@ class CfgVehicles
                     class Narrow: Periscope
                     {
                         opticsDisplayName = "NARROW";
-                        initFov = (0.233333 / 8);
-                        minFov = (0.233333 / 8);
-                        maxFov = (0.233333 / 8);
+                        initFov = (0.233333 / 6);
+                        minFov = (0.233333 / 6);
+                        maxFov = (0.233333 / 6);
                     };
                 };
-                weapons[] = {"mkk_leo_weap_l7a3_nofcs","mkk_MG3_nofcs"};
-                turretInfoType = "MKK_RscWeaponLeopard1A1_FCS";
+                turretInfoType = "MKK_RscWeaponMarder1A1_FCS";
+                weapons[] = {"mkk_MK20FL_nofcs", "mkk_veh_MG3_nofcs"};
             };
         };
         class AnimationSources: AnimationSources
 		{
-			class user_recoil
+			class recoil_source_1
 			{
-				source = "user";
+				source = "reload";
+				weapon = "mkk_MK20FL_nofcs";
+			};
+			class recoil_source_2
+			{
+				source = "reload";
+				weapon = "mkk_veh_MG3_nofcs";
+			};
+			class flash_mk_source
+			{
+				source = "reload";
+				weapon = "mkk_MK20FL_nofcs";
 				initPhase = 0;
-				animPeriod = 1;
 			};
-			class muzzle_hide_cannon
+			class flash_mg3_source
 			{
-				source="reload";
-				weapon="mkk_leo_weap_l7a3_nofcs";
-			};
-			class muzzle_rot_cannon
-			{
-				source="ammorandom";
-				weapon="mkk_leo_weap_l7a3_nofcs";
-			};
-			class recoil_source
-			{
-				source="reload";
-				weapon="mkk_leo_weap_l7a3_nofcs";
-			};
-			class muzzle_rot_mg
-			{
-				source="ammorandom";
-				weapon="mkk_MG3_nofcs";
-			};
-		};
-        class TransportMagazines
-		{
-			class leo1_apfsds_mags
-			{
-				magazine="mkk_csw_leo1_mag_dm33";
-				count=5;
-			};
-			class leo1_heat_mags
-			{
-				magazine="mkk_csw_leo1_mag_dm12";
-				count=5;
-			};
-			class leo1_he_mags
-			{
-				magazine="mkk_csw_leo1_mag_dm512_fix";
-				count=5;
-			};
-			class _xx_BWA3_120Rnd_762x51
-			{
-				magazine="BWA3_120Rnd_762x51";
-				count=5;
+				source = "reload";
+				weapon = "mkk_veh_MG3_nofcs";
+				initPhase = 0;
 			};
 		};
         class MKK_CSW
+        {
+            enabled = 1;
+            csw_weapons[] = {"mkk_veh_MG3_nofcs", "mkk_Milan_veh"};
+            class mkk_Milan_veh
+            {
+                can_refill = "false";
+                confition = "!(isTurnedOut _player)";
+                loadable_magazines[] = {"mkk_Milan_Mag"};
+                loading_time = 0.5;
+                max_magazine_count = 1;
+                turrets[] = {{0, 0}};
+                unloading_time = 10;
+                weapon_magazines[] = {"mkk_csw_Milan_Mag"};
+                weapon_turret[] = {1};
+            };
+            class mkk_veh_MG3_nofcs
+            {
+                can_refill = "false";
+                confition = "!(isTurnedOut _player)";
+                loadable_magazines[] = {
+                    "BWA3_120Rnd_762x51",
+                    "BWA3_120Rnd_762x51_Tracer",
+                    "BWA3_120Rnd_762x51_ap",
+                    "BWA3_120Rnd_762x51",
+                    "BWA3_120Rnd_762x51_soft",
+                    "BWA3_120Rnd_762x51_Tracer_soft",
+                    "BWA3_120Rnd_762x51_ap_soft"
+                };
+                loading_time = 0.5;
+                max_magazine_count = 10;
+                turrets[] = {{0}};
+                unloading_time = 0.5;
+                weapon_magazines[] = {
+                    "csw_BWA3_120Rnd_762x51",
+                    "csw_BWA3_120Rnd_762x51_Tracer",
+                    "csw_BWA3_120Rnd_762x51_ap",
+                    "csw_BWA3_1200Rnd_762x51",
+                    "csw_BWA3_120Rnd_762x51_soft",
+                    "csw_BWA3_120Rnd_762x51_Tracer_soft",
+                    "csw_BWA3_120Rnd_762x51_ap_soft"
+                };
+                weapon_turret[] = {0};
+            };
+        };
+    };
+
+    class mkk_Marder_1A1: mkk_Marder_1A1_base
+	{
+		editorPreview = "\Redd_Marder_1A5\pictures\Marder_F_Pre_Picture.paa";
+		scope = 2;
+		scopeCurator = 2;
+		displayName = "Marder 1A1";
+		faction = "BWA3_Faction_Fleck";
+		hiddenSelectionsTextures[] = {"\Redd_Marder_1A5\data\Redd_Marder_1A5_Camo1_co.paa","\Redd_Marder_1A5\data\Redd_Marder_1A5_Camo2_co.paa"};
+		class textureSources
 		{
-			enabled=1;
-			csw_weapons[]=
+			class Fleck
 			{
-				"mkk_leo_weap_l7a3_nofcs",
-				"mkk_MG3_nofcs"
+				displayName = "$STR_Marder_1A5_Flecktarn";
+				author = "ReddNTank";
+				textures[] = {"\Redd_Marder_1A5\data\Redd_Marder_1A5_Camo1_co.paa","\Redd_Marder_1A5\data\Redd_Marder_1A5_Camo2_co.paa"};
+				//factions[] = {"BLU_F"};
 			};
-			class mkk_leo_weap_l7a3_nofcs
+			class Tropen
 			{
-				condition="!(isTurnedOut _player)";
-				can_refill="false";
-				loadable_magazines[]=
-				{
-					"mkk_csw_leo1_mag_dm33",
-					"mkk_csw_leo1_mag_dm12",
-					"mkk_csw_leo1_mag_dm512_fix"
-				};
-				weapon_magazines[]=
-				{
-					"mkk_leo1_mag_dm33",
-					"mkk_leo1_mag_dm12",
-					"mkk_leo1_mag_dm512_fix"
-				};
-				max_magazine_count=1;
-				turrets[]=
-				{
-					{0,1}
-				};
-				weapon_turret[]={0};
-				loading_time=7;
-				unloading_time=4;
+				displayName = "$STR_Marder_1A5_Tropentarn";
+				author = "ReddNTank";
+				textures[] = {"\Redd_Marder_1A5\data\Redd_Marder_1A5_Camo1_Trope_co.paa","\Redd_Marder_1A5\data\Redd_Marder_1A5_Camo2_co.paa"};
+				//factions[] = {"BLU_F"};
 			};
-			class mkk_MG3_nofcs
+			class Winter
 			{
-				condition="!(isTurnedOut _player)";
-				can_refill="false";
-				loadable_magazines[]=
-				{
-					"BWA3_120Rnd_762x51",
-					"BWA3_120Rnd_762x51_Tracer",
-					"BWA3_120Rnd_762x51_ap",
-					"BWA3_120Rnd_762x51",
-					"BWA3_120Rnd_762x51_soft",
-					"BWA3_120Rnd_762x51_Tracer_soft",
-					"BWA3_120Rnd_762x51_ap_soft"
-				};
-				weapon_magazines[]=
-				{
-					"csw_BWA3_120Rnd_762x51",
-					"csw_BWA3_120Rnd_762x51_Tracer",
-					"csw_BWA3_120Rnd_762x51_ap",
-					"csw_BWA3_1200Rnd_762x51",
-					"csw_BWA3_120Rnd_762x51_soft",
-					"csw_BWA3_120Rnd_762x51_Tracer_soft",
-					"csw_BWA3_120Rnd_762x51_ap_soft"
-				};
-				max_magazine_count=10;
-				turrets[]=
-				{
-					{0},
-					{0,1}
-				};
-				weapon_turret[]={0};
-				loading_time=0.5;
-				unloading_time=0.5;
+				displayName = "$STR_Marder_1A5_Winter";
+				author = "ReddNTank";
+				textures[] = {"\Redd_Marder_1A5\data\Redd_Marder_1A5_Camo1_Winter_co.paa","\Redd_Marder_1A5\data\Redd_Marder_1A5_Camo2_co.paa"};
+				//factions[] = {"BLU_F"};
 			};
 		};
-    };
-
-    class mkk_leopard1a1: mkk_leopard1a1_base
-    {
-        side = 1;
-        scope = 2;
-        faction = "BWA3_Faction_Fleck";
-        crew = "B_Crew_F";
-        typicalCargo[] = {"B_Crew_F"};
-        hiddenSelectionsTextures[] = {"leopard1\data\body_woodland_co.paa","leopard1\data\armor_woodland_co.paa","leopard1\data\turret_woodland_co.paa","leopard1\data\gun_woodland_co.paa"};
-    };
-
-    class mkk_leopard1a1_r: mkk_leopard1_base
-	{
-		side = 0;
-		scope = 2;
-		faction="mkk_turki_side";
-		crew="O_crew_F";
-		typicalCargo[]={"O_Soldier_F"};
-		hiddenSelectionsTextures[] = {"leopard1\data\body_field2_co.paa","leopard1\data\armor_field2_co.paa","leopard1\data\turret_field2_co.paa","leopard1\data\gun_field2_co.paa"};
-	};
-
-	class mkk_leopard1a1_g: mkk_leopard1_base
-	{
-		side = 2;
-		scope = 2;
-		faction="IND_F";
-		crew="I_crew_F";
-		typicalCargo[]={"I_Soldier_F"};
-		hiddenSelectionsTextures[] = {"leopard1\data\body_aaf_co.paa","leopard1\data\armor_aaf_co.paa","leopard1\data\turret_aaf_co.paa","leopard1\data\gun_aaf_co.paa"};
+		textureList[] = {"Fleck",0,"Tropen",0,"Winter",0};
 	};
 };
