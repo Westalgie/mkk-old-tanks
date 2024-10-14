@@ -77,7 +77,7 @@ class RscInGameUI
 					colorText[]={0.70599997,0.074500002,0.0196,1};
 					shadow=0;
 					font="EtelkaMonospacePro";
-					text="leopard1a1\data\WST_tzf_1a_sight_ca.paa";
+					text="marder\data\WST_peri_z11_x2_sight_ca.paa";
 					x="14.3 *   (0.01875 * SafezoneH)";
 					y="7.26 *   (0.025 * SafezoneH)";
 					w="25.5 *   (0.01875 * SafezoneH)";

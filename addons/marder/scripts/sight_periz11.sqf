@@ -80,7 +80,7 @@ rhs_key_nxt_rnd_GLB        = (profileNamespace getVariable ["rhs_key_nxt_rnd","C
                 case "PERISCOPE" : {
                     {_x ctrlSetTextColor [0.7,0.074,0.02,1]; }foreach [_bar]; //придаем цвет сетки, чтобы ее было можно видеть
                     {_x ctrlSetTextColor [0.7,0.074,0.02,0]; }foreach [_sight]; //придаем цвет сетки, чтобы ее было можно видеть
-                    _bar ctrlSetText "leopard1a1\data\WST_tzf_1a_sight_ca.paa";
+                    _bar ctrlSetText "marder\data\WST_peri_z11_x2_sight_ca.paa";
                     _sight ctrlCommit 0.001;
                     _bar ctrlCommit 0.001;
                 };
