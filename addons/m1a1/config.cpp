@@ -32,6 +32,7 @@ class RscInGameUI
     class MKK_RscWeaponM1A1_GAS_FCS: RscUnitInfo
 	{
 		idd=300;
+        onLoad="['onLoad',_this,'RscUnitInfo','IGUI'] call (uinamespace getvariable 'BIS_fnc_initDisplay'); uiNameSpace setVariable ['MKK_M1A1_GAS_Ctrl',_this select 0];";
 		controls[]=
 		{
 			"CA_IGUI_elements_group"
@@ -53,6 +54,20 @@ class RscInGameUI
 			h = "40 *   (0.025 * SafezoneH)";
 			class controls
 			{
+                class RDS_Sight: RscPicture
+				{
+					idc=1;
+					style="0x30 + 0x800";
+					sizeEx="0.038*SafezoneH";
+					colorText[]={0.70599997,0.074500002,0.0196,1};
+					shadow=0;
+					font="EtelkaMonospacePro";
+					text="m1a1\data\WST_m236_apfsds_ca.paa";
+					x = "0 *   (0.01875 * SafezoneH) +   (SafezoneX + ((SafezoneW - SafezoneH) / 2))";
+                    y = "0 *   (0.025 * SafezoneH) +   (SafezoneY)";
+                    w = "53.5 *   (0.01875 * SafezoneH)";
+                    h = "40 *   (0.025 * SafezoneH)";
+				};
 				class CA_TurretIndicator: RscPicture
 				{
 					IDC = 206;
@@ -132,9 +147,33 @@ class RscInGameUI
 					w = "0*   (0.01875 * SafezoneH)";
 					h = "0 *   (0.025 * SafezoneH)";
 				};
+                class CA_OpticsMode: CA_OpticsZoom
+				{
+					idc=154;
+				};
+                class RHS_ControlNumber: CA_OpticsZoom
+				{
+					idc=1000;
+					text="MKK_SIGHT_M1A1_GAS";
+				};
 			};	
 		};
 	};
+};
+
+class CfgFunctions
+{
+    class SG
+    {
+        class Functions
+        {
+            class sight_m1a1gas
+            {
+                file="m1a1\scripts\sight_m1a1gas.sqf";
+				description="M1A1 Gunner Auxiliary Sight";
+            };
+        };
+    };
 };
 
 
@@ -173,6 +212,7 @@ class CfgVehicles
 		class Turrets {
 			class MainTurret: NewTurret {};
 		};
+        class EventHandlers;
 	};
     class Tank_F: Tank
 	{
@@ -210,6 +250,9 @@ class CfgVehicles
     class rhsusf_m1a1aimwd_usarmy_nofcs: rhsusf_m1a1aimwd_usarmy
     {
 		displayName = "M1A1AIM (GAS)";
+        class EventHandlers: EventHandlers {
+            PostInit = "params ['_entity']; [_entity] call SG_fnc_sight_m1a1gas";
+        };
         class Turrets: Turrets
 		{
 			class MainTurret: MainTurret
@@ -229,22 +272,24 @@ class CfgVehicles
 						maxFov = 0.233333;
 						visionMode[] = {"Normal", "NVG"};
                         gunnerOpticsModel = "m1a1\WST_Optics_Gunner_M1A1_Periscope";
+                        opticsDisplayName = "PERISCOPE";
 					};
 					class APFSDS: Periscope
 					{
-						gunnerOpticsModel = "m1a1\WST_Optics_Gunner_M1A1_APFSDS";
+                        opticsDisplayName = "ZOOM";
+						// gunnerOpticsModel = "m1a1\WST_Optics_Gunner_M1A1_APFSDS";
 						initFov = (0.233333 / 8);
 						minFov = (0.233333 / 8);
 						maxFov = (0.233333 / 8);
 					};
-                    class HEAT: APFSDS
-					{
-						gunnerOpticsModel = "m1a1\WST_Optics_Gunner_M1A1_HEAT";
-					};
-                    class HE: APFSDS
-					{
-						gunnerOpticsModel = "m1a1\WST_Optics_Gunner_M1A1_HE";
-					};
+                    // class HEAT: APFSDS
+					// {
+					// 	gunnerOpticsModel = "m1a1\WST_Optics_Gunner_M1A1_HEAT";
+					// };
+                    // class HE: APFSDS
+					// {
+					// 	gunnerOpticsModel = "m1a1\WST_Optics_Gunner_M1A1_HE";
+					// };
 				};
                 turretInfoType = "MKK_RscWeaponM1A1_GAS_FCS";
                 discreteDistance[] = {500};
